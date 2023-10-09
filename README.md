@@ -31,8 +31,30 @@ This application provides a simple API collection for managing blog posts. It of
 - **Description**: Create a new blog post.
 - **Request Body**: JSON object containing the blog post's title and content.
 - **Response**: Returns a JSON object with the ID of the newly created blog post.
+- **Sample Payload**: 
+{
+    "title": "My blog", 
+    "content": "I have written a blog"
+}
 
 ### Update a Post
 
 - **Endpoint**: `/post/:id`
-- **Method
+- **Method**: PUT
+- **Description**: Update an existing blog post by its unique identifier.
+- **Parameters**: `id` - The ID of the blog post to update.
+- **Request Body**: JSON object containing the updated title and content.
+- **Response**: Returns a success message.
+- **Sample Payload**: 
+{
+    "title": "My blog", 
+    "content": "I have written a blog"
+}
+
+### Delete a Post
+
+- **Endpoint**: `/post/:id`
+- **Method**: DELETE
+- **Description**: Delete a blog post by its unique identifier.
+- **Parameters**: `id` - The ID of the blog post to delete.
+- **Response**: Returns a success message.
