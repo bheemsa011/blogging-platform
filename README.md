@@ -15,6 +15,12 @@ This application provides a simple API collection for managing blog posts. It of
 - **Method**: GET
 - **Description**: Retrieve a list of all blog posts.
 - **Response**: Returns a JSON array of blog posts.
+- **Sample Response**: 
+{
+    "_id": "6523380438210d55f4fa03ba",
+    "title": "My blog",
+    "content": "I have written a blog"
+}
 
 ### Get a Post by ID
 
