@@ -1,0 +1,168 @@
+{
+	"info": {
+		"_postman_id": "0ba21397-4749-4666-8649-b060521dcac9",
+		"name": "blog-api-demo",
+		"description": "blog-api-demo is folder having all the api's related to blogging platform.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18381719"
+	},
+	"item": [
+		{
+			"name": "Get Posts",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Validate that the response is an array\", function () {",
+							"  pm.expect(pm.response.json()).to.be.an('array');",
+							"});",
+							"",
+							"",
+							"pm.test(\"Each post object in the array has the required fields\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('array');",
+							"    ",
+							"    responseData.forEach(function(post) {",
+							"        pm.expect(post._id).to.exist.and.to.be.a('string');",
+							"        pm.expect(post.title).to.exist.and.to.be.a('string');",
+							"        pm.expect(post.content).to.exist.and.to.be.a('string');",
+							"    });",
+							"});",
+							"",
+							"",
+							"pm.test(\"Validate that the _id field is a non-empty string\", function () {",
+							"    const responseData = pm.response.json();",
+							"",
+							"    pm.expect(responseData).to.be.an('array');",
+							"    ",
+							"    responseData.forEach(function(post) {",
+							"        pm.expect(post._id).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+							"    });",
+							"});",
+							"",
+							"",
+							"pm.test(\"Validate that the title field is a non-empty string\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData).to.be.an('array');",
+							"  ",
+							"  responseData.forEach(function(post) {",
+							"    pm.expect(post.title).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Title should not be empty\");",
+							"  });",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/posts",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"posts"
+					]
+				},
+				"description": "This API will give colection of all posts in database.\n\nSample response :  \n  \n\\[  \n{  \n\"_id\": \"6523380438210d55f4fa03ba\",  \n\"title\": \"My blog\",  \n\"content\": \"I have written a blog\"  \n},  \n{  \n\"_id\": \"652338c738210d55f4fa03bb\",  \n\"title\": \"My blog 2\",  \n\"content\": \"I have written my second blog\"  \n}  \n\\]"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Post By ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/post/6523380438210d55f4fa03ba",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"post",
+						"6523380438210d55f4fa03ba"
+					]
+				},
+				"description": "This api will give the blog post of particular blog ID.  \nSample response :  \n{  \n\"_id\": \"6523380438210d55f4fa03ba\",  \n\"title\": \"My blog\",  \n\"content\": \"I have written a blog\"  \n}"
+			},
+			"response": []
+		},
+		{
+			"name": "Create a blog",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{    \n        \"title\": \"My blog\",\n        \"content\": \"I have written a blog\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/post",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"post"
+					]
+				},
+				"description": "This api will use to create new blog post.\n\nSample payload :  \n{  \n\"title\": \"My blog\",  \n\"content\": \"I have written a blog\"  \n}\n\nSample response :\n\n{  \n\"insertID\": \"65234d60e42d070e4f68e684\"  \n}"
+			},
+			"response": []
+		},
+		{
+			"name": "Modify the blog",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"My blog\", \n    \"content\": \"I have written a blog\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/post/6523380438210d55f4fa03ba",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"post",
+						"6523380438210d55f4fa03ba"
+					]
+				},
+				"description": "This API will use to modify the title and content of the blog.\n\nSmaple Payload :  \n{  \n\"title\": \"My blog\",  \n\"content\": \"I have written a blog\"  \n}\n\nSample Response :\n\n{  \n\"message\": \"Post updated successfully\"}"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a blog post",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"description": "This API will use in delete the blog post. It will take ID as a parameter of the URL."
+			},
+			"response": []
+		}
+	]
+}
